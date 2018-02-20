@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}The room!{% endblock %}
+{% block header_text %}The rooooooom{% endblock %}
+{% block content %}
+  <h3>HELLO!</h3>
+  <ul>
+    {% for message in messages %}
+      <li> {{ message.message }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
