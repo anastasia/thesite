@@ -55,19 +55,19 @@
     var weather = Math.ceil((Math.random() * 100) + 1);
     $('.weather-value').text(weather);
   };
-  var timeleft = 30;
+  var timeleft = 5;
   var setTimeLeft = setInterval(function() {
     console.log("timeleft", timeleft);
     $('.time-left').text(timeleft.toString());
     timeleft -= 1;
     if (timeleft < 0) {
       clearInterval(setTimeLeft);
-      var session_key = location.search.split('?session_key')[1];
+      var session_key = location.search.split('?session_key=')[1];
       $.ajax({
         url: '/exit',
         data: {session_key: session_key}
-
-      });
+      }).then(function(){
+        location.href='http://localhost:8000/goodbye'});
       {# TO DO: redirect out of site now #}
     }
   }, 1000);

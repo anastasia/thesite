@@ -80,7 +80,7 @@ def remove_session(session_key, delete=False):
 @database_sync_to_async
 def get_place_in_line(session):
     queue = list(
-    Session.objects.all().order_by('created_at').filter(is_active=True, in_room=False).values_list('key', flat=True))
+    Session.objects.all().order_by('created_at').filter(is_active=True).values_list('key', flat=True))
     return queue.index(session)
 
 @database_sync_to_async
@@ -104,7 +104,6 @@ def update_session_in_room(session_key):
         session.save()
     session = Session.objects.get(key=session_key)
     session.in_room = True
-    session.is_active = False
     session.save()
     print('update_session_in_room:::::::session_key:', session_key, 'in room????', session.in_room)
 

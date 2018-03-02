@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from theroom.models import *
 from theroom.utils import get_place_in_line
 
@@ -28,10 +29,14 @@ def the_website(request):
     else:
         return redirect('/')
 
-def getsession(request):
-    print("getting session", request)
-    return "here is an answer"
 
 def exit(request):
-    print('exiting', request.GET)
-    return
+    session_key = request.GET.get('session_key')
+    session = Session.objects.get(key=session_key)
+    session.is_active = False
+    session.save()
+    return redirect('/goodbye')
+
+
+def goodbye(request):
+    return HttpResponse('goodbye')
