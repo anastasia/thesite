@@ -1,12 +1,81 @@
-{% extends "base.html" %}
+{% extends "base_no_sockets.html" %}
+{% load staticfiles %}
 
 {% block title %}The room!{% endblock %}
-{% block header_text %}The rooooooom{% endblock %}
 {% block content %}
-  <h3>HELLO!</h3>
-  <ul>
-    {% for message in messages %}
-      <li> {{ message.message }}</li>
-    {% endfor %}
-  </ul>
+  <header>
+  <div class="row">
+    <div class="col-2">
+      <div class="weather">
+        Today's weather <span class="weather-value"></span><span class="degrees">&deg;</span>
+      </div>
+    </div>
+    <div class="col-8 logo">
+      <div class="row">
+        <div class="col-2 logo-hr">&nbsp;</div>
+        <div class="col-4">
+          <h1>The<br/>Website</h1>
+        </div>
+        <div class="col-2 logo-hr">&nbsp;</div>
+      </div>
+      {#      <img src="{% static "img/header.png" %}" alt="The Website">#}
+    </div>
+    <div class="col-2">
+      Enjoy this
+      content for <span class="time-left" onload="setTimeLeft();">30</span>
+    </div>
+  </div>
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-5">
+        One of three columns
+      </div>
+      <div class="col-5 main-content">
+        <h3 class="section-title"></h3>
+        <h5 class="primary-headline headline">Primary headline goes here</h5>
+        <p class="primary-description description">Some description</p>
+
+      </div>
+      <div class="col-2">
+        <section>
+          <h4 class="section-title">Section title</h4>
+          <h5 class="secondary-headline headline">Secondary headline goes here</h5>
+          <p class="secondary-description description">Some description</p>
+          <h5 class="secondary-headline headline">Secondary headline goes here</h5>
+          <p class="secondary-description description">Some description</p>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra_body %}
+  <script>
+  var getWeather = function(){
+    var weather = Math.ceil((Math.random() * 100) + 1);
+    $('.weather-value').text(weather);
+  };
+  var timeleft = 30;
+  var setTimeLeft = setInterval(function() {
+    console.log("timeleft", timeleft);
+    $('.time-left').text(timeleft.toString());
+    timeleft -= 1;
+    if (timeleft < 0) {
+      clearInterval(setTimeLeft);
+      var session_key = location.search.split('?session_key')[1];
+      $.ajax({
+        url: '/exit',
+        data: {session_key: session_key}
+
+      });
+      {# TO DO: redirect out of site now #}
+    }
+  }, 1000);
+
+  $(function() {
+    console.log('on ready????');
+    {#  weather #}
+    getWeather();
+  });
+  </script>
 {% endblock %}

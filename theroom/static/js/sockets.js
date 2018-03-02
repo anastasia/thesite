@@ -2,12 +2,12 @@ $(function () {
     // Correctly decide between ws:// and wss://
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     var ws_path = ws_scheme + '://' + window.location.host + "/chat/stream/";
-    console.log("Connecting to " + ws_path);
+    console.log("WEBSOCKETS: Connecting to " + ws_path);
     var socket = new ReconnectingWebSocket(ws_path);
-
     // Handle incoming messages
     socket.onmessage = function (message) {
         // Decode the JSON
+        console.log("MESSAGE", message);
         console.log("Got websocket message " + message.data);
         var data = JSON.parse(message.data);
         // Handle errors
@@ -80,13 +80,34 @@ $(function () {
                     ok_msg = "<div class='contextual-message text-muted'>" + data.username +
                             " left the room!" +
                             "</div>";
+
                     break;
                 default:
-                    console.log("Unsupported message type!");
+                    if (data.place_in_line > 0) {
+                        $('.phase').css('display', 'inline-block');
+                        // $('.phase-2').attr('display', 'inline-block');
+                        console.log("data.place_in_line", data.place_in_line);
+                        $('#line-number').text(data.place_in_line);
+                        console.log("Unsupported message type!", data);
+
+                        setTimeout(function () {
+                          socket.send(JSON.stringify({
+                            "command": "boot_bot",
+                          }));
+                        }, 3000)
+
+                    } else if (data.place_in_line === 0) {
+                        socket.send(JSON.stringify({
+                          "command": "enter_the_site"
+                        }));
+
+                        setTimeout(function(){
+                          location.href = location.href + 'the_website/?session_key=' + data.session_key
+                        }, 2000)
+                    }
                     return;
             }
             msgdiv.append(ok_msg);
-
             msgdiv.scrollTop(msgdiv.prop("scrollHeight"));
         } else {
             console.log("Cannot handle message!");
@@ -124,5 +145,8 @@ $(function () {
     };
     socket.onclose = function () {
         console.log("Disconnected from chat socket");
+        socket.send({
+          data: {disconnect: true},
+        });
     }
 });

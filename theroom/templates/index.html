@@ -1,24 +1,25 @@
 {% extends "base.html" %}
 
-{% block title %}MultiChat Example{% endblock %}
-{% block header_text %}MultiChat Example{% endblock %}
+{% block title %}The Site{% endblock %}
+{#{% block header_text %}MultiChat Example{% endblock %}#}
 
 {% block content %}
-
-    <ul class="rooms">
-        {% for room in rooms %}
-            <li class="room-link" data-room-id="{{ room.id }}">{{ room }}</li>
-        {% empty %}
-            <p class="empty">No chat rooms defined. Maybe make some in the <a href="{% url 'admin:index' %}">admin</a>?</p>
-        {% endfor %}
-    </ul>
-
-    <div id="chats">
+    <div class="phase phase-1">
+      <p>
+        Please wait.
+      </p>
+      <p>
+        The Site is currently being used.
+      </p>
+    </div>
+    <div class="phase phase-2">
+      You are number <span id="line-number"></span> in line
     </div>
 
 {% endblock %}
 {#{% block scripts %}#}
 {#  <script src="js/sockets.js"></script>#}
+{#  <script src="js/waiting-room.js"></script>#}
 {#{% endblock %}#}
 {##}
 {#{% block extra_body %}#}

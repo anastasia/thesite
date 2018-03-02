@@ -65,10 +65,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'thesite',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    },
 }
+ATOMIC_REQUESTS = True
 
 
 # Password validation
@@ -154,3 +159,7 @@ MESSAGE_TYPES_LIST = [
 # SESSION_ENGINE  = "django.contrib.sessions.backends.signed_cookies"
 ALLOWED_HOSTS = '*'
 SESSION_COOKIE_NAME = 'CRAZY_COOKIE'
+
+ROOM_ID = 1
+
+BASE_URL = "http://localhost:8000/"
