@@ -31,26 +31,25 @@ def get_room_or_error(room_id):
 
 @database_sync_to_async
 def get_current_queue():
-    # refresh from db
-    queue = list(Session.objects.all().order_by('created_at').filter(is_active=True).values_list('key', flat=True))
-    print("current queue>>>>>>>>>>>>>>:", queue)
-    return queue
+    return list(Session.objects.all().order_by('created_at').filter(is_active=True).values_list('key', flat=True))
 
 
+@database_sync_to_async
 def create_bot_session():
-    rand_str = 'bot_session_'+ str(uuid.uuid1())
+    rand_str = 'bot_session_' + str(uuid.uuid1())
     session = Session.objects.create(key=rand_str, is_active=True)
+    return session.key
 
 
 def create_bot_sessions():
     randint = random.randint(1, 3)
     while randint > 0:
-        create_bot_session()
+        create_bot_session.func()
         randint -= 1
 
 @database_sync_to_async
-def get_or_create_session(scope):
-    current_queue = list(Session.objects.all().order_by('created_at').filter(is_active=True).values_list('key', flat=True))
+def get_or_create_session(scope ):
+    current_queue = get_current_queue.func()
     # current_queue = get_current_queue()
     print("length of current queue:", len(current_queue))
     if len(current_queue) == 0:
@@ -79,13 +78,14 @@ def remove_session(session_key, delete=False):
 
 @database_sync_to_async
 def get_place_in_line(session):
-    queue = list(
-    Session.objects.all().order_by('created_at').filter(is_active=True).values_list('key', flat=True))
+    # sess = get_or_create_session.func(session)
+    queue = get_current_queue.func()
     return queue.index(session)
+
 
 @database_sync_to_async
 def remove_next_bot_session():
-    queue = list(Session.objects.all().order_by('created_at').filter(is_active=True).values_list('key', flat=True))
+    queue = get_current_queue.func()
     if 'bot_session_' in queue[0]:
         session = Session.objects.get(key=queue[0])
         session.is_active = False
@@ -96,6 +96,7 @@ def remove_next_bot_session():
     else:
         return
 
+
 @database_sync_to_async
 def update_session_in_room(session_key):
     all_sessions = Session.objects.all()
@@ -105,5 +106,5 @@ def update_session_in_room(session_key):
     session = Session.objects.get(key=session_key)
     session.in_room = True
     session.save()
-    print('update_session_in_room:::::::session_key:', session_key, 'in room????', session.in_room)
+    return session.key
 

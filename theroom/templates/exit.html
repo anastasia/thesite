@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}The Site{% endblock %}
+{#{% block header_text %}MultiChat Example{% endblock %}#}
+{% block content %}
+    <header>
+        <div class="logo">
+          {% include "includes/logo.html" %}
+        </div>
+    </header>
+
+    <div class="waiting-room-content">
+        Thank you for visiting.
+      <br/>
+        Click the button to get back in line.
+      <br/>
+        <button class="waiting-room-button" onclick="goBack();">Go back</button>
+    </div>
+
+{% endblock %}

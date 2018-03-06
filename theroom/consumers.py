@@ -94,8 +94,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         # Leave all the rooms we are still in
         session_key = self.scope['session'].session_key
         print('disconnecting, removing session key', session_key)
-        # remove_session(session_key)
-        time.sleep(2)
+        await remove_session(session_key)
+        # time.sleep(2)
         await self.leave_room('waiting_room')
 
     ##### Command helper methods called by receive_json

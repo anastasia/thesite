@@ -1,0 +1,14 @@
+body {
+    background-color: #000;
+    color: #fff;
+    text-align: center
+}
+.logo-text {
+    fill: #fff;
+}
+
+.logo-line {
+    stroke-width: 3px;
+    stroke: #fff;
+}
+

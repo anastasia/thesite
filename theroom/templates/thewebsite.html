@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}The Website{% endblock %}
+{% block content %}
+  <header>
+  <div class="row">
+    <div class="col-2 secondary-header">
+      <div class="weather">
+        <div class="content-left">
+          Today's weather
+        </div>
+        <div class="content-right">
+          <span class="weather-value"></span><span class="degrees">&deg;</span>
+        </div>
+      </div>
+    </div>
+    <img class="logo" src="{% static "img/logo.png" %}"/>
+    <div class="col-3 secondary-header">
+      <div class="content-left">
+        Enjoy this
+        <br/>
+        content for
+      </div>
+      <div class="content-right time-left-container">
+        <div class="time-left card-block d-table-cell align-middle">
+          <span class="time-left"></span>
+          <br/><span class="time-left-seconds">seconds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-center subtitle">
+    <h3 class="subtitle">There is nothing more valuable than knowledge</h3>
+  </div>
+  </header>
+
+  <div class="overlay">
+    <div class="loader"></div>
+    <img src="{% static "img/offer-1.png" %}" class="offer-img" />
+    <img src="{% static "img/offer-2.png" %}" class="offer-img" />
+    <img src="{% static "img/offer-3.png" %}" class="offer-img" />
+  </div>
+  <div class="row the-website-body">
+    <div class="col-5">
+      <div class="row">
+        <div class="col-12">
+          <img src="{% static "img" %}" class="verts-img" />
+
+          <div class="col-12 no-padding-left no-padding-right">
+            <div class="secondary-headline headline">We value your feedback!</div>
+            <textarea placeholder="Write something nice here"></textarea>
+            <button onclick="submitFeedback();">Submit</button>
+          </div>
+          <img src="{% static "img" %}" class="verts-img" />
+        </div>
+        <div class="col-6 less-padding-right">
+          <img src="{% static "img" %}" class="verts-img" />
+          <img src="{% static "img" %}" class="verts-img" />
+        </div>
+        <div class="col-6 less-padding-left">
+          <img src="{% static "img" %}" class="verts-img" />
+          <img src="{% static "img" %}" class="verts-img" />
+        </div>
+      </div>
+    </div>
+    <div class="col-5 main-content">
+      <h3 class="section-title">Today's content</h3>
+      <h5 class="primary-headline headline">Breaking news</h5>
+      <a class="upgrade">Please upgrade your account to see this content.</a>
+      <br/>
+      <a class="upgrade">Upgrade here!!!!! Upgrade for the best in news, sports, philosophy.</a>
+      <img src="{% static "img" %}" class="verts-img" />
+      <a class="upgrade">Please upgrade your account to see this content.</a>
+      <img src="{% static "img" %}" class="verts-img" />
+      <img src="{% static "img" %}" class="verts-img" />
+      <img src="{% static "img" %}" class="verts-img" />
+    </div>
+    <div class="col-2">
+        <h4 class="section-title">Sports</h4>
+        <h5 class="secondary-headline headline"><a class="upgrade">
+          Please upgrade your account to see this content.</a></h5>
+        <img src="{% static "img" %}" class="verts-img" />
+        <p class="secondary-description description"></p>
+        <h5 class="secondary-headline headline"><a class="upgrade">
+          Please upgrade your account to see this content.</a></h5>
+        <img src="{% static "img" %}" class="verts-img" />
+        <img src="{% static "img" %}" class="verts-img" />
+      <h5 class="secondary-headline headline">Philosophy</h5>
+      <a class="upgrade">
+          Please upgrade your account to see this content.</a>
+        <img src="{% static "img" %}" class="verts-img" />
+        <img src="{% static "img" %}" class="verts-img" />
+        <img src="{% static "img" %}" class="verts-img" />
+        <h5 class="secondary-headline headline"><a class="upgrade">
+          Please upgrade your account to see this content.</a></h5>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_body %}
+{% endblock %}

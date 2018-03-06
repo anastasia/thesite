@@ -84,17 +84,13 @@ $(function () {
                     break;
                 default:
                     if (data.place_in_line > 0) {
-                        $('.phase').css('display', 'inline-block');
-                        // $('.phase-2').attr('display', 'inline-block');
-                        console.log("data.place_in_line", data.place_in_line);
-                        $('#line-number').text(data.place_in_line);
-                        console.log("Unsupported message type!", data);
+                        updateWaitingLinePosition(data.place_in_line);
 
                         setTimeout(function () {
                           socket.send(JSON.stringify({
                             "command": "boot_bot",
                           }));
-                        }, 3000)
+                        }, 3000);
 
                     } else if (data.place_in_line === 0) {
                         socket.send(JSON.stringify({

@@ -1,6 +1,11 @@
 /* BLUE IS #0000ff */
-.phase {
-    display: none;
+body.container {
+    font-family: "Times New Roman", serif;
+}
+
+header {
+    font-size: 18px;
+    color: #0000ff;
 }
 
 header h1 {
@@ -11,17 +16,107 @@ header h1 {
     line-height: 70px;
 }
 
-.logo div {
-    text-align: left;
+.logo > svg {
+    margin: auto;
+    display: block;
 }
+
+img.logo {
+    margin: 0 auto;
+    max-height: 100px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media(max-width: 720px) {
+    .secondary-header {
+        display: none;
+    }
+    h3.subtitle {
+        margin-left: 0px !important;
+    }
+}
+
+.logo-text {
+    fill: #0000ff;
+}
+
+.logo-line {
+    stroke-width: 3px;
+    stroke: #222;
+}
+
+.the-website-body textarea {
+    min-width: 100%;
+    min-height: 200px;
+    font-family: "Basic Sans", sans-serif;
+}
+
+h3.subtitle {
+    font-size: 20px;
+    font-style: italic;
+    color: #0000ff;
+    margin-left: -100px;
+}
+
+.content-left {
+    float: left;
+    margin:0;
+    width:50%;
+    height: 100%
+}
+
+.content-right {
+    float: right;
+    margin:0;
+    width:50%;
+}
+
+.section-title,
+.primary-headline.headline {
+    color: #0000ff;
+    font-weight: bold;
+}
+
+.secondary-headline.headline {
+    color: #0000ff;
+    font-weight: normal;
+}
+
 /* the website */
 .section-title {
     border-bottom: 1px solid black;
+    color: #222;
 }
 
 .col-2.logo-hr {
     border-bottom: 3px solid #222;
     margin-bottom: 30px;
+}
+
+.time-left {
+    font-size: 69px;
+    font-style: normal;
+    line-height: 20px;
+    color: #0000ff;
+    text-align: center;
+}
+
+.time-left-container {
+    border: 1px solid #979797;
+    width: 120px;
+    height: 120px;
+    padding-top: 20px;
+    background-color: #fff;
+}
+
+
+.time-left > .time-left-seconds {
+    font-size: 23px;
+
 }
 
 .weather {
@@ -34,4 +129,131 @@ header h1 {
 }
 .degrees {
     font-size: 53px;
+}
+
+.blocked-img {
+    margin-bottom: 2px;
+}
+
+.offer-img {
+    max-width: 300px;
+    max-height: 300px;
+    margin: 0 auto;
+    background-color: #0000ff;
+    position: fixed;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    transform: translateY(50%);
+    visibility: hidden;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    min-width: 100%;
+    min-height: 100%;
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 0;
+}
+
+.waiting-room-content {
+    font-family: "Basic Sans", sans-serif;
+    font-size: 25px;
+    font-weight: 100;
+}
+
+.waiting-room-button {
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 300;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.waiting-room-button:hover {
+    background-color: #fff;
+    color: #222;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    position: static;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.verts-img {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.less-padding-right {
+    padding-right: 3px !important;
+}
+
+.less-padding-left {
+    padding-left: 3px !important;
+}
+
+.no-padding-right {
+    padding-right: 0px !important;
+}
+
+.no-padding-left {
+    padding-left: 0px !important;
+}
+
+
+button, textarea {
+    border: 1px solid #0000ff;
+    background-color: #fff;
+    font-family: "Basic Sans", sans-serif !important;
+    color: #0000ff;
+}
+
+textarea {
+    padding: 10px;
+}
+
+button {
+    cursor: pointer;
+    padding: 2px 16px;
+    margin: 10px 0px 10px 0px !important;
+}
+
+.the-website-body button {
+    width: 100%;
+}
+
+a {
+    border-bottom: 1px solid #0000ff;
+    cursor: pointer;
+    color: #0000ff;
+}
+
+img {
+    cursor: pointer;
 }
