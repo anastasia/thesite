@@ -51,10 +51,20 @@ var getWeather = function(){
   $('.weather-value').text(weather);
 };
 
+var getHoroscope = function () {
+  $.ajax("https://horoscopes-and-astrology.com/json")
+      .then(function(results) {
+        var horoscopes = Object.keys(results.dailyhoroscope);
+        var rand = randint(0, horoscopes.length - 1);
+        var horoscope = results.dailyhoroscope[horoscopes[rand]].split('\<a')[0]
+        $('.horoscope').html(horoscope);
+      });
+};
+
 $(function() {
   getWeather();
   offers();
-
+  getHoroscope();
   $('img.offer-img').click(function() {
     var to_error = to_error_or_not[randint(0, to_error_or_not.length-1)];
     $('.loader').css('visibility', 'visible');

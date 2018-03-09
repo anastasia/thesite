@@ -90,7 +90,7 @@ $(function () {
                           socket.send(JSON.stringify({
                             "command": "boot_bot",
                           }));
-                        }, 3000);
+                        }, 10000);
 
                     } else if (data.place_in_line === 0) {
                         socket.send(JSON.stringify({

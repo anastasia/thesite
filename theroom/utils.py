@@ -42,7 +42,7 @@ def create_bot_session():
 
 
 def create_bot_sessions():
-    randint = random.randint(1, 3)
+    randint = random.randint(2, 5)
     while randint > 0:
         create_bot_session.func()
         randint -= 1
