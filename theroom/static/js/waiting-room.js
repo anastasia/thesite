@@ -15,6 +15,5 @@ var updateWaitingLinePosition = function(place_in_line) {
 
 
 $(function() {
-  offers();
-
+  // show ads here
 });
