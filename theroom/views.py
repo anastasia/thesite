@@ -34,6 +34,11 @@ def the_website(request):
         return redirect('/goodbye')
 
 
+def fake_website(request):
+    return render(request, "thewebsite.html", {
+        "template_name": "thewebsite",
+    })
+
 
 def exit(request):
     session_key = request.GET.get('session_key')

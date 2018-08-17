@@ -1,11 +1,6 @@
-from django.conf import settings
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from channels.db import database_sync_to_async
-import random
-from .exceptions import ClientError
 from theroom.utils import *
 from theroom.models import *
-import time
 
 # remove old connections
 Session.objects.all().delete()
@@ -13,15 +8,8 @@ ROOMS = ["waiting_room"]
 counter = 0
 class ChatConsumer(AsyncJsonWebsocketConsumer):
     """
-    This chat consumer handles websocket connections for chat clients.
-
-    It uses AsyncJsonWebsocketConsumer, which means all the handling functions
-    must be async functions, and any sync work (like ORM access) has to be
-    behind database_sync_to_async or sync_to_async. For more, read
     http://channels.readthedocs.io/en/latest/topics/consumers.html
     """
-    ##### WebSocket event handlers
-
 
     async def connect(self):
         """
@@ -83,9 +71,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         place_in_line = await get_place_in_line(session)
         print("enter_the_site", place_in_line)
         if place_in_line == 0:
-            print("LUCKY YOU::::::::::>>>>>", session)
             await self.join_room('the_site')
-            # url = settings.BASE_URL + 'the_website/'
 
     async def disconnect(self, code):
         """
@@ -98,7 +84,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         # time.sleep(2)
         await self.leave_room('waiting_room')
 
-    ##### Command helper methods called by receive_json
     async def join_room(self, room_id):
         """
         Called by receive_json when someone sent a join command.
@@ -108,7 +93,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
 
         session = await get_or_create_session(self.scope)
         if room_id == 'the_site':
-            print('BACKEND< MARKING FOR ENTERANCE ')
             await update_session_in_room(session)
 
         # Send a join message if it's turned on
@@ -179,15 +163,10 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             }
         )
 
-    ##### Handlers for messages sent over the channel layer
-
-    # These helper methods are named by the types we send - so chat.join becomes chat_join
     async def chat_join(self, event):
         """
         Called when someone has joined our chat.
         """
-        # Send a message down to the client
-        # add_waiting_member(event["username"])
         session = await get_or_create_session(self.scope)
         await self.send_json(
             {
@@ -204,39 +183,3 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         # Send a message down to the client
         session = await get_or_create_session(self.scope)
         await self.send_place_in_line()
-
-        place_in_line = get_place_in_line(session)
-        # if place_in_line == 0:
-        #     print("LUCKY YOU session::::", session)
-        #     # import ipdb; ipdb.set_trace()
-        #     await self.join_room('the_site')
-        # requests.get('/the_website/', params={'is_allowed':True})
-
-#
-#
-#     async def chat_message(self, event):
-#         """
-#         Called when someone has messaged our chat.
-#         """
-#         # Send a message down to the client
-#         session = await get_or_create_session(self.scope)
-#
-#         await self.send_json(
-#             {
-#                 "msg_type": settings.MSG_TYPE_MESSAGE,
-#                 "room": event["room_id"],
-#                 "username": event['username'],
-#                 "message": event['message'],
-#             },
-#         )
-#
-#         # if event["username"] == await get_or_create_session(self.scope):
-#         #     message = Message.objects.create(
-#         #         session_id=event["username"],
-#         #         message=event["message"])
-#         #     message.save()
-# #
-# # class Bot(ChatConsumer):
-# #     def __init__(self):
-# #         print("hello world, I am Bot")
-# #

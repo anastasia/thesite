@@ -4,6 +4,7 @@ from theroom import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^the_website/', views.the_website),
+    url(r'^fake_website/', views.fake_website),
     url(r'^exit/', views.exit),
     url(r'^goodbye', views.goodbye),
     url(r'^$', views.index),
