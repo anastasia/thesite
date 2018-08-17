@@ -6,7 +6,7 @@ var offers = [
 ];
 
 var verts = [
-  "hot-girl-2.gif",
+  "hot-woman.gif",
   "img-2.jpg",
   "sale-2.png",
   "sale-3.png",
